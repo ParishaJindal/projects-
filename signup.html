@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login & Signup</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center/cover;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.modal {
+  width: 750px;
+  height: 480px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.left {
+  width: 50%;
+  background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945') no-repeat center/cover;
+  position: relative;
+}
+
+.left::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+.left-content {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #fff;
+}
+
+.right {
+  width: 50%;
+  padding: 25px;
+  background: #fafafa;
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.tabs {
+  display: flex;
+  background: #eee;
+  border-radius: 30px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.tabs div {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.active-tab {
+  background: linear-gradient(to right, #ff7a18, #ff4b2b);
+  color: #fff;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  margin-top: 15px;
+  background: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+button.active-btn {
+  background: linear-gradient(to right, #ff7a18, #ff4b2b);
+  cursor: pointer;
+}
+
+.footer {
+  font-size: 11px;
+  margin-top: 15px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay">
+  <div class="modal">
+
+    <div class="left">
+      <div class="left-content">
+        <h2 id="titleText">Welcome Back</h2>
+        <p id="subtitleText">Login to continue ✈️</p>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="close">×</div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <div id="loginTab" class="active-tab">LOGIN</div>
+        <div id="signupTab">SIGN UP</div>
+      </div>
+
+      <!-- LOGIN UI -->
+      <div id="loginUI">
+        <label>Mobile Number</label>
+        <input type="text" id="loginMobile">
+
+        <label>Email Address</label>
+        <input type="email" id="loginEmail">
+
+        <button id="loginBtn" disabled>LOGIN</button>
+      </div>
+
+      <!-- SIGNUP UI -->
+      <div id="signupUI" style="display:none;">
+        <label>Full Name</label>
+        <input type="text" id="name">
+
+        <label>Mobile Number</label>
+        <input type="text" id="signupMobile">
+
+        <label>Email Address</label>
+        <input type="email" id="signupEmail">
+
+        <button id="signupBtn" disabled>CREATE ACCOUNT</button>
+      </div>
+
+      <div class="footer">
+        Use phone OR email
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Tabs
+const loginTab = document.getElementById("loginTab");
+const signupTab = document.getElementById("signupTab");
+const loginUI = document.getElementById("loginUI");
+const signupUI = document.getElementById("signupUI");
+
+const titleText = document.getElementById("titleText");
+const subtitleText = document.getElementById("subtitleText");
+
+loginTab.onclick = () => {
+  loginUI.style.display = "block";
+  signupUI.style.display = "none";
+  loginTab.classList.add("active-tab");
+  signupTab.classList.remove("active-tab");
+
+  titleText.innerText = "Welcome Back";
+  subtitleText.innerText = "Login to continue ✈️";
+};
+
+signupTab.onclick = () => {
+  loginUI.style.display = "none";
+  signupUI.style.display = "block";
+  signupTab.classList.add("active-tab");
+  loginTab.classList.remove("active-tab");
+
+  titleText.innerText = "Join Us";
+  subtitleText.innerText = "Create your account ✈️";
+};
+
+// LOGIN VALIDATION
+const loginMobile = document.getElementById("loginMobile");
+const loginEmail = document.getElementById("loginEmail");
+const loginBtn = document.getElementById("loginBtn");
+
+function validateLogin() {
+  const phoneValid = loginMobile.value.length === 10 && !isNaN(loginMobile.value);
+  const emailValid = loginEmail.value.includes("@") && loginEmail.value.includes(".");
+
+  if (phoneValid || emailValid) {
+    loginBtn.disabled = false;
+    loginBtn.classList.add("active-btn");
+  } else {
+    loginBtn.disabled = true;
+    loginBtn.classList.remove("active-btn");
+  }
+}
+
+loginMobile.addEventListener("input", validateLogin);
+loginEmail.addEventListener("input", validateLogin);
+
+// SIGNUP VALIDATION
+const nameInput = document.getElementById("name");
+const signupMobile = document.getElementById("signupMobile");
+const signupEmail = document.getElementById("signupEmail");
+const signupBtn = document.getElementById("signupBtn");
+
+function validateSignup() {
+  const nameValid = nameInput.value.trim().length > 2;
+  const phoneValid = signupMobile.value.length === 10 && !isNaN(signupMobile.value);
+  const emailValid = signupEmail.value.includes("@") && signupEmail.value.includes(".");
+
+  if (nameValid && (phoneValid || emailValid)) {
+    signupBtn.disabled = false;
+    signupBtn.classList.add("active-btn");
+  } else {
+    signupBtn.disabled = true;
+    signupBtn.classList.remove("active-btn");
+  }
+}
+
+nameInput.addEventListener("input", validateSignup);
+signupMobile.addEventListener("input", validateSignup);
+signupEmail.addEventListener("input", validateSignup);
+
+// BUTTON ACTIONS
+loginBtn.onclick = () => {
+  alert("Login Successful ");
+  window.location.href = "journey sphere main page.html";
+};
+
+signupBtn.onclick = () => {
+  alert("Account Created ");
+  window.location.href = "journey sphere main page.html";
+};
+
+// Close
+document.querySelector(".close").onclick = () => {
+  document.querySelector(".overlay").style.display = "none";
+};
+</script>
+  <script src="chatbot.js" defer></script>
+</body>
+</html>

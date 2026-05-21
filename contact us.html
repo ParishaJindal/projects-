@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us</title>
+</head>
+<body>
+
+<h2>Contact Us</h2>
+
+<form onsubmit="return validateForm()">
+    Name: <input type="text" id="name"><br><br>
+    Email: <input type="text" id="email"><br><br>
+    Message:<br>
+    <textarea id="message"></textarea><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+function validateForm() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+
+    if (name === "" || email === "" || message === "") {
+        alert("All fields are required!");
+        return false;
+    }
+
+    if (!email.includes("@")) {
+        alert("Enter a valid email!");
+        return false;
+    }
+
+    alert("Form submitted successfully!");
+    return true;
+}
+</script>
+  <script src="chatbot.js" defer></script>
+</body>
+</html>

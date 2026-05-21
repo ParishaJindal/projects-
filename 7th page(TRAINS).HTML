@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Train Booking UI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+body{
+  
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background-image: url("https://wallpapers.com/images/hd/mountain-aesthetic-h218g2kezxzhrd41.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      animation: fadeIn 1s ease-in-out;
+      overflow-x: hidden;
+    }  
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      } 
+
+      to {
+        opacity: 1;
+      }
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      background-color: rgba(203, 162, 143, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo span {
+      font-size: 40px;
+      font-weight: bold;
+      color: #f1e4da;
+      font-family: "Brush Script MT", cursive;
+      animation: pulse 2.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .title {
+      font-size: 32px;
+      font-family: "Brush Script MT", cursive;
+      font-weight: bold;
+      color: black;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-item i {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 5px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .nav-item:hover i {
+      transform: scale(1.2);
+      color: #6a1b9a;
+    }
+
+    .nav-item::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #6a1b9a;
+      transition: 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-item:hover::after {
+      width: 100%;
+    }
+
+    .nav-item a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .search {
+      border: 2px solid black;
+      border-radius: 25px;
+      padding: 8px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search:hover {
+      background: black;
+      color: white;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.25);
+      margin: 40px;
+      padding: 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+    }
+
+    h1 {
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 36px;
+    }
+
+    .places {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .place {
+      cursor: pointer;
+    }
+
+    .place img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .place img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .place p {
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 22px;
+    }
+
+    .options {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #aee6fa;
+      border-radius: 40px;
+      padding: 15px 25px;
+      text-align: center;
+      min-width: 180px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* JavaScript Toggle Class */
+    .card.selected {
+      background: #ffd700 !important;
+      transform: scale(1.1) translateY(-10px);
+      border: 2px solid #000;
+    }
+
+    footer {
+      background-color: #d3d3d3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+    }
+
+    .copyright {
+      font-family: "Brush Script MT", cursive;
+      font-size: 20px;
+      font-style: italic;
+    }
+
+    /* Search Overlay Styles */
+    #searchOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      color: white;
+    }
+
+    #searchOverlay input {
+      width: 50%;
+      padding: 15px;
+      border-radius: 30px;
+      border: none;
+      font-size: 20px;
+      margin-top: 20px;
+    
+  background:#f2f2f2;
+}
+
+/* ===== HERO BG ===== */
+.hero{
+  background:url("https://images.unsplash.com/photo-1501785888041-af3ef285b470")
+  center/cover no-repeat;
+  padding:30px 0 80px;
+}
+
+/* ===== SEARCH CARD ===== */
+.search-card{
+  background:#fff;
+  width:90%;
+  margin:auto;
+  border-radius:14px;
+  padding:15px 20px 40px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+/* ===== TOP OPTIONS ===== */
+.options{
+  display:flex;
+  gap:20px;
+  font-size:14px;
+  margin-bottom:15px;
+}
+.options label{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* ===== FIELDS ===== */
+.fields{
+  display:grid;
+  grid-template-columns:1.5fr 1.5fr 1fr 1fr;
+  gap:15px;
+}
+
+.field{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:12px;
+}
+
+.field small{
+  color:#666;
+  font-size:12px;
+}
+.field h3{
+  font-size:20px;
+  margin:5px 0;
+}
+.field p{
+  font-size:12px;
+  color:#777;
+}
+
+/* ===== SEARCH BUTTON ===== */
+.search-btn{
+  position:relative;
+  top:25px;
+  display:flex;
+  justify-content:center;
+}
+.search-btn button{
+  background:#1e78ff;
+  color:#fff;
+  border:none;
+  padding:12px 50px;
+  border-radius:30px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* ===== OFFERS ===== */
+.offers{
+  background:#fff;
+  width:90%;
+  margin:30px auto;
+  padding:25px;
+  border-radius:16px;
+}
+
+/* ===== OFFERS HEADER ===== */
+.offers-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.offers-header h2{
+  font-size:22px;
+}
+.tabs{
+  display:flex;
+  gap:15px;
+  font-size:14px;
+}
+.tabs span{
+  cursor:pointer;
+}
+.tabs .active{
+  color:#1e78ff;
+  font-weight:600;
+}
+
+/* ===== OFFER CARDS ===== */
+.offer-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+
+.offer-card{
+  background:#fff;
+  border-radius:14px;
+  padding:15px;
+  display:flex;
+  gap:15px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  transition:.3s;
+}
+.offer-card:hover{
+  transform:translateY(-5px);
+}
+
+.offer-card img{
+  width:80px;
+  height:80px;
+  border-radius:10px;
+  object-fit:cover;
+}
+
+.offer-card h4{
+  font-size:14px;
+  margin-bottom:6px;
+}
+.offer-card p{
+  font-size:12px;
+  color:#666;
+}
+.offer-card a{
+  font-size:12px;
+  color:#1e78ff;
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .fields{
+    grid-template-columns:1fr;
+  }
+  .search-btn{
+    top:15px;
+  }
+}
+</style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo">
+      <span>JS</span>
+      <div class="title">Journey Sphere</div>
+    </div>  
+
+    <div class="nav">
+      <div class="nav-item">
+        <i class="fas fa-plane"></i>
+        <a href="2nd page journey.html">FLIGHTS</a>
+      </div>
+      <div class="nav-item"><i class="fas fa-suitcase-rolling"></i> <a
+          href="10th page journey(TOURS AND ATTRACTION).HTML"> TOURS</a></div>
+      <div class="nav-item"><i class="fas fa-map-marked-alt"></i><a href="3RD page journey.html">HOLIDAY
+          <BR>DESTINATIONS</a></div>
+      <div class="nav-item"><i class="fas fa-ship"></i><a href="5TH page (CRUISE).HTML">CRUISE</a></div>
+
+
+      <div class="nav-item"><i class="fas fa-car"></i><a href="8th page journey(CABS).HTML">CABS</a> </div>
+      <div class="nav-item"><i class="fas fa-bus"></i> <a href="9th page journey(BUSES).HTML">BUSES</a></div>
+      <div class="nav-item"><i class="fas fa-train"></i><a href="7th page(TRAINS).HTML"> TRAINS </a></div>
+
+      <div class="nav-item"><i class="fas fa-passport"></i><A href="6th page (VISA).HTML">VISA</A> </div>
+      <div class="nav-item"><i class="fas fa-hotel"></i><A href="4TH PAGE JOURNEY( HOTEL).HTML">HOTELS</A></div>
+    </div>
+
+    <div class="search" id="triggerSearch">
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+
+  <div class="search-card">
+
+    <!-- Options -->
+    <div class="options">
+      <label><input type="radio" checked> Book Train Tickets</label>
+      <label><input type="radio"> Check PNR Status</label>
+      <label><input type="radio"> Live Train Status</label>
+    </div>
+
+    <!-- Fields -->
+    <div class="fields">
+      <div class="field">
+        <small>From</small>
+        <h3>New Delhi</h3>
+        <p>NDLS, New Delhi Railway Station</p>
+      </div>
+
+      <div class="field">
+        <small>To</small>
+        <h3>Kanpur</h3>
+        <p>CNB, Kanpur Central</p>
+      </div>
+
+      <div class="field">
+        <small>Travel Date</small>
+        <h3>20 Dec’25</h3>
+        <p>Saturday</p>
+      </div>
+
+      <div class="field">
+        <small>Class</small>
+        <h3>ALL</h3>
+        <p>All Class</p>
+      </div>
+    </div>
+
+    <!-- Search Button -->
+    <div class="search-btn">
+      <button>SEARCH</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== OFFERS ===== -->
+<section class="offers">
+
+  <div class="offers-header">
+    <h2>Offers</h2>
+    <div class="tabs">
+      <span class="active">Trains</span>
+      <span>All Offers</span>
+      <span>Hotels</span>
+      <span>Flights</span>
+      <span>Bus</span>
+      <span>Cabs</span>
+    </div>
+  </div>
+
+  <div class="offer-grid">
+
+    <div class="offer-card">
+      <img src="https://promos.makemytrip.com/images/trains-tb-dt-131025.webp">
+      <div>
+        <h4>YEAR-END TRAIN BOOKINGS OPEN</h4>
+        <p>Book by paying 25% fare with seat lock.</p>
+        <a href="#">BOOK NOW</a>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <img src="https://promos.makemytrip.com/images/train-tb-dt-091025.webp">
+      <div>
+        <h4>Get a Confirmed Ticket or 3x Refund</h4>
+        <p>with Alternate Trip Plan feature.</p>
+        <a href="#">KNOW MORE</a>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <img src="https://thedailyguardian.com/wp-content/uploads/2025/09/irctc-with-aadhar.png">
+      <div>
+        <h4>Aadhaar-based Authentication</h4>
+        <p>Mandatory for Tatkal bookings.</p>
+        <a href="#">BOOK NOW</a>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <img src="https://images.railyatri.in/assets/wisdom/2S.jpg">
+      <div>
+        <h4>Seat Availability Forecast</h4>
+        <p>Get sold-out alerts for trains.</p>
+        <a href="#">BOOK NOW</a>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+  <footer>
+    <div>
+      <i class="fab fa-snapchat" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-facebook" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-instagram" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-x-twitter" style="font-size: 30px; cursor: pointer;"></i>
+    </div>
+    <div class="copyright">
+      © 2025 journeysphere pvt.ltd
+    </div>
+  </footer>
+
+
+  <script src="chatbot.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tours & Attractions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background-image: url("https://wallpapers.com/images/hd/mountain-aesthetic-h218g2kezxzhrd41.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      animation: fadeIn 1s ease-in-out;
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      background-color: rgba(193, 203, 143, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo span {
+      font-size: 40px;
+      font-weight: bold;
+      color:  #f1e4da;;
+      font-family: "Brush Script MT", cursive;
+      animation: pulse 2.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .title {
+      font-size: 32px;
+      font-family: "Brush Script MT", cursive;
+      font-weight: bold;
+      color: black;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-item i {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 5px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .nav-item:hover i {
+      transform: scale(1.2);
+      color: #6a1b9a;
+    }
+
+    .nav-item::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #6a1b9a;
+      transition: 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-item:hover::after {
+      width: 100%;
+    }
+
+    .nav-item a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .search {
+      border: 2px solid black;
+      border-radius: 25px;
+      padding: 8px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search:hover {
+      background: black;
+      color: white;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.25);
+      margin: 40px;
+      padding: 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+    }
+
+    h1 {
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 36px;
+    }
+
+    .places {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .place {
+      cursor: pointer;
+    }
+
+    .place img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .place img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .place p {
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 22px;
+    }
+
+    .options {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #aee6fa;
+      border-radius: 40px;
+      padding: 15px 25px;
+      text-align: center;
+      min-width: 180px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* JavaScript Toggle Class */
+    .card.selected {
+      background: #ffd700 !important;
+      transform: scale(1.1) translateY(-10px);
+      border: 2px solid #000;
+    }
+
+    footer {
+      background-color: #d3d3d3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+    }
+
+    .copyright {
+      font-family: "Brush Script MT", cursive;
+      font-size: 20px;
+      font-style: italic;
+    }
+
+    /* Search Overlay Styles */
+    #searchOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      color: white;
+    }
+
+    #searchOverlay input {
+      width: 50%;
+      padding: 15px;
+      border-radius: 30px;
+      border: none;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background:
+        linear-gradient(180deg, #f4f8ff, #ffffff);
+      color: #222;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 35px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+      animation: fadeUp .8s ease forwards;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    /* ================= ANIMATION ================= */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ================= TRENDING DESTINATIONS ================= */
+    .destinations {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 18px;
+    }
+
+    .destination {
+      text-align: center;
+      transition: .4s;
+    }
+
+    .destination img {
+      width: 100%;
+      height: 110px;
+      border-radius: 12px;
+      object-fit: cover;
+      transition: .4s;
+    }
+
+    .destination p {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .destination:hover {
+      transform: translateY(-8px);
+    }
+
+    .destination:hover img {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
+    }
+
+    .top-things {
+      background: #fff4cc;
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .top-card {
+      position: relative;
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: .4s;
+    }
+
+    .top-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .top-card span {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ffb703;
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .top-card p {
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .top-card:hover {
+      transform: scale(1.05);
+    }
+
+    .activities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 22px;
+    }
+
+    .activity {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: .4s;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+    }
+
+    .activity img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .activity-content {
+      padding: 12px;
+    }
+
+    .activity h4 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .activity span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .activity:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, .15);
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media(max-width:600px) {
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo">
+      <span>JS</span>
+      <div class="title">Journey Sphere</div>
+    </div>
+
+    <div class="nav">
+      <div class="nav-item">
+        <i class="fas fa-plane"></i>
+        <a href="2nd page journey.html">FLIGHTS</a>
+      </div>
+      <div class="nav-item"><i class="fas fa-suitcase-rolling"></i> <a
+          href="10th page journey(TOURS AND ATTRACTION).HTML"> TOURS</a></div>
+      <div class="nav-item"><i class="fas fa-map-marked-alt"></i><a href="3RD page journey.html">HOLIDAY
+          <BR>DESTINATIONS</a></div>
+      <div class="nav-item"><i class="fas fa-ship"></i><a href="5TH page (CRUISE).HTML">CRUISE</a></div>
+
+
+      <div class="nav-item"><i class="fas fa-car"></i><a href="8th page journey(CABS).HTML">CABS</a> </div>
+      <div class="nav-item"><i class="fas fa-bus"></i> <a href="9th page journey(BUSES).HTML">BUSES</a></div>
+      <div class="nav-item"><i class="fas fa-train"></i><a href="7th page(TRAINS).HTML"> TRAINS </a></div>
+
+      <div class="nav-item"><i class="fas fa-passport"></i><A href="6th page (VISA).HTML">VISA</A> </div>
+      <div class="nav-item"><i class="fas fa-hotel"></i><A href="4TH PAGE JOURNEY( HOTEL).HTML">HOTELS</A></div>
+    </div>
+
+    <div class="search" id="triggerSearch">
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+  <div class="container">
+
+
+    <div class="section">
+      <h2>Trending Destinations</h2>
+      <br>
+      <div class="destinations">
+        <div class="destination"><img src="https://go-assets.ibcdn.com/u/MMT/images/1738311214816-dubai.jpeg">
+          <p>Dubai</p>
+        </div>
+        <div class="destination"><img src="https://go-assets.ibcdn.com/u/MMT/images/1738311201425-paris.jpeg">
+          <p>Paris</p>
+        </div>
+        <div class="destination"><img
+            src="https://hblimg.mmtcdn.com/content/hubble/img/desttvimg/mmt/destination/m_Bali_tv_destination_img_1_l_771_1158.jpg">
+          <p>Bali</p>
+        </div>
+
+        <div class="destination"><img
+            src="https://tse3.mm.bing.net/th/id/OIP.PQobVYg4rzDkNAsPf0J0KwHaE7?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+          <p>Phuket</p>
+        </div>
+        <div class="destination"><img src="https://go-assets.ibcdn.com/u/MMT/images/1738311132025-singapore.jpeg">
+          <p>Singapore</p>
+        </div>
+        <div class="destination"><img src="https://go-assets.ibcdn.com/u/MMT/images/1738311161537-bangkok.jpeg">
+          <p>Bangkok</p>
+        </div>
+        <div class="destination"><img
+            src="https://hblimg.mmtcdn.com/content/hubble/img/ACMEImages/mmt/acme/m_London_l_745_1116.jpg">
+          <p>London</p>
+        </div>
+        <div class="destination"><img
+            src="https://hblimg.mmtcdn.com/content/hubble/img/ACMEImages/mmt/acme/m_Kuala%20Lumpur_l_676_1000.jpg">
+          <p>Kuala Lumpur</p>
+        </div>
+        <div class="destination"><img
+            src="https://tse1.mm.bing.net/th/id/OIP.yj9zcJq5Xwww6inBXUkY8QHaE9?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+          <p>Los Angeles</p>
+        </div>
+        <div class="destination"><img src="https://cdn.britannica.com/36/194936-050-495739BE/Trevi-Fountain-Rome.jpg">
+          <p>Rome</p>
+        </div>
+        <div class="destination"><img
+            src="https://www.infoescola.com/wp-content/uploads/2020/08/hong-kong_693729124.jpg">
+          <p>Hong Kong</p>
+        </div>
+        <div class="destination"><img
+            src="https://tse1.mm.bing.net/th/id/OIP.sLjA9RB7rZ6sxJh-eQGJRQHaE8?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+          <p>Germany</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TOP THINGS ================= -->
+    <div class="section top-things">
+      <h2>Top Things To Do Worldwide</h2>
+      <div class="top-grid">
+        <div class="top-card">
+          <span>1</span>
+          <img
+            src="https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/Final/The-Burj-Khalifa-Tickets-508760/1725974902267_S.jpg">
+          <p>The Burj Khalifa Tickets</p>
+        </div>
+        <div class="top-card">
+          <span>2</span>
+          <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/09/99/99/87.jpg">
+          <p>Desert Safari Dubai</p>
+        </div>
+        <div class="top-card">
+          <span>3</span>
+          <img src="https://product-image.globaltix.com/live-gtImage/733235dd-2654-4d3c-9740-051bb3df6098">
+          <p>Universal Studios Singapore</p>
+        </div>
+        <div class="top-card">
+          <span>4</span>
+          <img src="https://product-image.globaltix.com/live-gtImage/32ea7d3d-0afb-4dd3-bd24-b31348500277">
+          <p>Safari World Bangkok</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="section">
+      <h2>Trending Activities</h2>
+      <div class="activities">
+        <div class="activity">
+          <img src="https://i.pinimg.com/736x/1c/6e/4b/1c6e4bea6f73e315d0d12cfec8400dcc.jpg">
+          <div class="activity-content">
+            <h4><a href="https://www.makemytrip.com/toursandattractions/details?acode=ACME491757"> Desert Safari
+                Dubai</a></h4>
+            <span>₹1,499 per adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img src="https://i.pinimg.com/736x/ef/31/0b/ef310b05cf7e62c72238656dbe826b6b.jpg">
+          <div class="activity-content">
+            <h4> <a href="https://www.makemytrip.com/toursandattractions/details?acode=ACME508090"> Gardens by the Bay
+              </a></h4>
+            <span>₹1,299 per adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img src="https://i.pinimg.com/1200x/9e/50/39/9e5039dd666baa001936ae82d3515f3a.jpg">
+          <div class="activity-content">
+            <h4><a href="https://www.makemytrip.com/toursandattractions/details?acode=ACME215712"> Disneyland Paris
+                Ticket </a> </h4>
+            <span>₹4,999 per adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img
+            src="https://th.bing.com/th/id/OIP.gGqqmQhzujDsaC8mU3ckggHaE7?o=7&cb=ucfimg2&rm=3&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+          <div class="activity-content">
+            <h4> <a href=" https://www.makemytrip.com/toursandattractions/details?acode=ACME485880">YONA Floating Beach
+                Club</a> </h4>
+            <span>₹7,299 per adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img
+            src="https://th.bing.com/th/id/OIP.G3qoPBDb90RBzZhgascOXwHaHa?o=7&cb=ucfimg2&rm=3&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+          <div class="activity-content">
+            <h4> <a href=" https://www.makemytrip.com/toursandattractions/details?acode=ACME508280">Singapore Flyer</a>
+            </h4>
+            <span>₹2,899 per adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img src="https://i.pinimg.com/736x/6e/6e/3e/6e6e3e9870fe0ecd914d43b7c0b25cce.jpg">
+          <div class="activity-content">
+            <h4> <a href="https://www.makemytrip.com/toursandattractions/details?acode=ACME508131"> Night Safari </a>
+            </h4>
+            <span>₹4,899 per adult</span>
+          </div>
+        </div>
+
+
+        <div class="activity">
+          <img src="https://i.pinimg.com/1200x/c2/2c/9e/c22c9e1f8b120f63d92546ae150ddf84.jpg">
+          <div class="activity-content">
+            <h4><a href="https://www.makemytrip.com/toursandattractions/details?acode=ACME250670">Eiffel Tower Access
+                Tour to 2nd Floor with Summit Option by Lift</a></h4>
+            <span>₹4,644 per Adult</span>
+          </div>
+        </div>
+<DIV > THE SPAN IS CHANGING IN THE DUBAI SINGAPORE PARIS  BALI PHUKET</DIV>
+        <div class="activity">
+          <img
+            src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/08/3a/c5/ac.jpg">
+          <div class="activity-content">
+            <h4> <a href="https://www.makemytrip.com/toursandattractions/details?acode=ACME507719">Baiyoke Sky Hotel
+                Observation Deck</a> </h4>
+            <span>₹1,297 per Adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0a/b1/ac/e8.jpg">
+          <div class="activity-content">
+            <h4> <a href=" https://www.makemytrip.com/toursandattractions/details?acode=ACME477900">Half-Day Kuala
+                Lumpur City Highlights Tour</a> </h4>
+            <span>₹1,465 per Adult</span>
+          </div>
+        </div>
+
+
+        <div class="activity">
+          <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/15/c5/af/64.jpg">
+          <div class="activity-content">
+            <h4> <a href=" https://www.makemytrip.com/toursandattractions/details?acode=ACME216887">Rome: Colosseum,
+                Roman Forum, and Palatine Hill Guided Tour</a></h4>
+            <span>₹3,375 per Adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/36/04/46.jpg">
+          <div class="activity-content">
+            <h4> <a href=" https://www.makemytrip.com/toursandattractions/details?acode=ACME240695"> Chicago River
+                90-Minute Architecture Tour</a></h4>
+            <span>₹3,796 per Adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/25/13/74.jpg">
+          <div class="activity-content">
+            <h4> <a href="https://www.makemytrip.com/toursandattractions/details?acode=ACME239279">New York in One Day
+                Guided Sightseeing Tour</a></h4>
+            <span>₹8,429 per Adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/b5/5d/1c.jpg">
+          <div class="activity-content">
+            <h4><a href="https://www.makemytrip.com/toursandattractions/details?acode=ACME241589">New Orleans Steamboat
+                Natchez Jazz Cruise with Dinner Option</a></h4>
+            <span>₹4,893 per Adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0a/f0/89/9b.jpg">
+          <div class="activity-content">
+            <h4> <a href="https://www.makemytrip.com/toursandattractions/details?acode=ACME382679">Las Vegas Helicopter
+                Night Strip Flight Tour with Optional Dinner</a> </h4>
+            <span>₹6,873 per Adult</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <img src="https://i.pinimg.com/736x/67/0a/da/670ada041564cd8e3daec2f961793b6d.jpg">
+          <div class="activity-content">
+            <h4> <a href="https://www.makemytrip.com/toursandattractions/details?acode=ACME216915">Venice In a Day: St
+                Mark's, Doges Palace Gondola Ride & City Tour</a> </h4>
+            <span>₹12,763 per Adult</span>
+          </div>
+        </div>
+
+
+        <footer>
+          <div>
+            <i class="fab fa-snapchat" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+            <i class="fab fa-facebook" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+            <i class="fab fa-instagram" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+            <i class="fab fa-x-twitter" style="font-size: 30px; cursor: pointer;"></i>
+          </div>
+          <div class="copyright">
+            © 2025 journeysphere pvt.ltd
+          </div>
+        </footer>
+
+      </div>
+    </div>
+
+  </div>
+  <script src="chatbot.js" defer></script>
+</body>
+
+</html>

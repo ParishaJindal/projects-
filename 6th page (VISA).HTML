@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visa Page</title>
+
+<style>
+*{
+      body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background-image: url("https://wallpapers.com/images/hd/mountain-aesthetic-h218g2kezxzhrd41.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      animation: fadeIn 1s ease-in-out;
+      overflow-x: hidden;
+    }  
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      } 
+
+      to {
+        opacity: 1;
+      }
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      background-color: rgba(203, 162, 143, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo span {
+      font-size: 40px;
+      font-weight: bold;
+      color: #f1e4da;
+      font-family: "Brush Script MT", cursive;
+      animation: pulse 2.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .title {
+      font-size: 32px;
+      font-family: "Brush Script MT", cursive;
+      font-weight: bold;
+      color: black;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-item i {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 5px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .nav-item:hover i {
+      transform: scale(1.2);
+      color: #6a1b9a;
+    }
+
+    .nav-item::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #6a1b9a;
+      transition: 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-item:hover::after {
+      width: 100%;
+    }
+
+    .nav-item a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .search {
+      border: 2px solid black;
+      border-radius: 25px;
+      padding: 8px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search:hover {
+      background: black;
+      color: white;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.25);
+      margin: 40px;
+      padding: 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+    }
+
+    h1 {
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 36px;
+    }
+
+    .places {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .place {
+      cursor: pointer;
+    }
+
+    .place img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .place img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .place p {
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 22px;
+    }
+
+    .options {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #aee6fa;
+      border-radius: 40px;
+      padding: 15px 25px;
+      text-align: center;
+      min-width: 180px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* JavaScript Toggle Class */
+    .card.selected {
+      background: #ffd700 !important;
+      transform: scale(1.1) translateY(-10px);
+      border: 2px solid #000;
+    }
+
+    footer {
+      background-color: #d3d3d3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+    }
+
+    .copyright {
+      font-family: "Brush Script MT", cursive;
+      font-size: 20px;
+      font-style: italic;
+    }
+
+    /* Search Overlay Styles */
+    #searchOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      color: white;
+    }
+
+    #searchOverlay input {
+      width: 50%;
+      padding: 15px;
+      border-radius: 30px;
+      border: none;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+body{
+  background:#f5f6f8;
+}
+
+/* ===== TOP SEARCH BAR ===== */
+.top-bar{
+  background:#0e3a6d;
+  padding:20px 0;
+}
+
+.search-box{
+  background:#fff;
+  width:90%;
+  margin:auto;
+  padding:15px;
+  border-radius:14px;
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+
+.search-field{
+  flex:1;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:12px;
+}
+
+.search-field small{
+  color:#777;
+}
+
+.search-btn{
+  background:#1e78ff;
+  color:#fff;
+  border:none;
+  padding:12px 35px;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* ===== SECTION ===== */
+.section{
+  width:90%;
+  margin:35px auto;
+}
+
+.section h2{
+  font-size:20px;
+  margin-bottom:15px;
+}
+
+/* ===== CARD ROW ===== */
+.card-row{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+/* ===== COUNTRY CARD ===== */
+.country-card{
+  background:#fff;
+  width:240px;
+  border-radius:14px;
+  padding:15px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+  transition:.3s;
+}
+
+.country-card:hover{
+  transform:translateY(-6px);
+}
+
+.flag{
+  font-size:22px;
+}
+
+.country-card h3{
+  font-size:16px;
+  margin-top:8px;
+}
+
+.country-card p{
+  font-size:12px;
+  color:#666;
+  margin:6px 0;
+}
+
+.price{
+  font-weight:600;
+  margin-top:10px;
+}
+
+/* ===== EUROPE ===== */
+.europe-card{
+  background:#fff;
+  width:260px;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.europe-top{
+  height:60px;
+}
+
+.france{background:linear-gradient(45deg,#002395,#fff,#ed2939)}
+.spain{background:linear-gradient(45deg,#aa151b,#f1bf00)}
+.finland{background:linear-gradient(45deg,#003580,#fff)}
+.germany{background:linear-gradient(45deg,#000,#dd0000,#ffce00)}
+
+.europe-body{
+  padding:15px;
+}
+
+.europe-body h3{
+  font-size:16px;
+}
+
+.europe-body p{
+  font-size:12px;
+  color:#666;
+  margin:6px 0;
+}
+
+.apply{
+  color:#1e78ff;
+  font-size:13px;
+  cursor:pointer;
+}
+
+/* ===== ANNOUNCEMENTS ===== */
+.announce{
+  background:#fff;
+  border-radius:14px;
+  padding:15px;
+  width:360px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.announce h3{
+  font-size:15px;
+}
+
+.announce p{
+  font-size:12px;
+  margin-top:6px;
+  color:#666;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .search-box{
+    flex-direction:column;
+  }
+  .country-card,.europe-card,.announce{
+    width:100%;
+  }
+}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Georgia", serif;
+}
+
+body{
+  background:#eaf4ff;
+}
+
+/* ===== SECTION ===== */
+.countries-section{
+  padding:40px 20px;
+  text-align:center;
+}
+
+/* ===== HEADING ===== */
+.countries-section h1{
+  font-size:36px;
+  font-style:italic;
+  color:#0b4fa3;
+  margin-bottom:35px;
+}
+
+/* ===== FLAGS ROW ===== */
+.flags{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:22px;
+  flex-wrap:wrap;
+}
+
+/* ===== FLAG STYLE ===== */
+.flags img{
+  width:38px;
+  height:26px;
+  object-fit:cover;
+  border-radius:3px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+  transition:0.3s;
+}
+
+.flags img:hover{
+  transform:scale(1.15);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+  .countries-section h1{
+    font-size:26px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== SEARCH BAR ===== -->
+ <div class="header">
+    <div class="logo">
+      <span>JS</span>
+      <div class="title">Journey Sphere</div>
+    </div>  
+
+    <div class="nav">
+      <div class="nav-item">
+        <i class="fas fa-plane"></i>
+        <a href="2nd page journey.html">FLIGHTS</a>
+      </div>
+      <div class="nav-item"><i class="fas fa-suitcase-rolling"></i> <a
+          href="10th page journey(TOURS AND ATTRACTION).HTML"> TOURS</a></div>
+      <div class="nav-item"><i class="fas fa-map-marked-alt"></i><a href="3RD page journey.html">HOLIDAY
+          <BR>DESTINATIONS</a></div>
+      <div class="nav-item"><i class="fas fa-ship"></i><a href="5TH page (CRUISE).HTML">CRUISE</a></div>
+
+
+      <div class="nav-item"><i class="fas fa-car"></i><a href="8th page journey(CABS).HTML">CABS</a> </div>
+      <div class="nav-item"><i class="fas fa-bus"></i> <a href="9th page journey(BUSES).HTML">BUSES</a></div>
+      <div class="nav-item"><i class="fas fa-train"></i><a href="7th page(TRAINS).HTML"> TRAINS </a></div>
+
+      <div class="nav-item"><i class="fas fa-passport"></i><A href="6th page (VISA).HTML">VISA</A> </div>
+      <div class="nav-item"><i class="fas fa-hotel"></i><A href="4TH PAGE JOURNEY( HOTEL).HTML">HOTELS</A></div>
+    </div>
+
+    <div class="search" id="triggerSearch">
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+<div class="top-bar">
+  <div class="search-box">
+    <div class="search-field">
+      <small>SELECT DESTINATION</small><br>
+      <strong>Where are you going?</strong>
+    </div>
+    <div class="search-field">
+      <small>DATE OF DEPARTURE</small><br>
+      <strong>Select Date</strong>
+    </div>
+    <div class="search-field">
+      <small>DATE OF RETURN</small><br>
+      <strong>Select Date</strong>
+    </div>
+    <button class="search-btn">SEARCH</button>
+  </div>
+</div>
+
+<!-- ===== MOST VISITED ===== -->
+<div class="section">
+  <h2>Most-visited Countries</h2>
+  <div class="card-row">
+
+    <div class="country-card">
+      <div class="flag">🇦🇪</div>
+      <h3>United Arab Emirates</h3>
+      <p>Get your visa by 25 Dec</p>
+      <p>Quick & Easy Process</p>
+      <div class="price">₹7,000 per adult</div>
+    </div>
+
+    <div class="country-card">
+      <div class="flag">🇹🇭</div>
+      <h3>Thailand</h3>
+      <p>Get your visa by 20 Dec</p>
+      <p>Mandatory for Indians</p>
+      <div class="price">₹0 per adult</div>
+    </div>
+
+    <div class="country-card">
+      <div class="flag">🇻🇳</div>
+      <h3>Vietnam</h3>
+      <p>Get your visa by 24 Dec</p>
+      <p>Quick Process</p>
+      <div class="price">₹2,300 per adult</div>
+    </div>
+
+    <div class="country-card">
+      <div class="flag">🇮🇩</div>
+      <h3>Indonesia</h3>
+      <p>Get your visa by 20 Dec</p>
+      <p>Easy Process</p>
+      <div class="price">₹2,800 per adult</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== VISIT EUROPE ===== -->
+<div class="section">
+  <h2>Visit Europe!</h2>
+  <div class="card-row">
+
+    <div class="europe-card">
+      <div class="europe-top france"></div>
+      <div class="europe-body">
+        <h3>France</h3>
+        <p>Appointment by 25 Dec</p>
+        <span class="apply">Apply Now ›</span>
+      </div>
+    </div>
+
+    <div class="europe-card">
+      <div class="europe-top spain"></div>
+      <div class="europe-body">
+        <h3>Spain</h3>
+        <p>Appointment by 25 Dec</p>
+        <span class="apply">Apply Now ›</span>
+      </div>
+    </div>
+
+    <div class="europe-card">
+      <div class="europe-top finland"></div>
+      <div class="europe-body">
+        <h3>Finland</h3>
+        <p>Appointment by 29 Dec</p>
+        <span class="apply">Apply Now ›</span>
+      </div>
+    </div>
+
+    <div class="europe-card">
+      <div class="europe-top germany"></div>
+      <div class="europe-body">
+        <h3>Germany</h3>
+        <p>Appointment by 22 Dec</p>
+        <span class="apply">Apply Now ›</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== ANNOUNCEMENTS ===== -->
+<div class="section">
+  <h2>Visa Announcements</h2>
+  <div class="card-row">
+
+    <div class="announce">
+      <h3>🇦🇪 UAE National Day Holidays</h3>
+      <p>Visa processing may be delayed due to holidays in December.</p>
+    </div>
+
+    <div class="announce">
+      <h3>🇨🇦 Canada Visa Duration</h3>
+      <p>Applicants may receive visas for shorter duration depending on documents.</p>
+    </div>
+
+  </div>
+</div>
+<section class="countries-section">
+  <h1>Travel to more than 25 countries now</h1>
+
+  <div class="flags">
+    <img src="https://flagcdn.com/w40/fr.png">
+    <img src="https://flagcdn.com/w40/eg.png">
+    <img src="https://flagcdn.com/w40/dk.png">
+    <img src="https://flagcdn.com/w40/cz.png">
+    <img src="https://flagcdn.com/w40/kh.png">
+    <img src="https://flagcdn.com/w40/be.png">
+    <img src="https://flagcdn.com/w40/az.png">
+    <img src="https://flagcdn.com/w40/at.png">
+    <img src="https://flagcdn.com/w40/au.png">
+    <img src="https://flagcdn.com/w40/ae.png">
+    <img src="https://flagcdn.com/w40/th.png">
+    <img src="https://flagcdn.com/w40/lk.png">
+    <img src="https://flagcdn.com/w40/sg.png">
+    <img src="https://flagcdn.com/w40/ke.png">
+    <img src="https://flagcdn.com/w40/it.png">
+    <img src="https://flagcdn.com/w40/id.png">
+    <img src="https://flagcdn.com/w40/fr.png">
+  </div>
+  
+  <footer>
+    <div>
+      <i class="fab fa-snapchat" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-facebook" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-instagram" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-x-twitter" style="font-size: 30px; cursor: pointer;"></i>
+    </div>
+    <div class="copyright">
+      © 2025 journeysphere pvt.ltd
+    </div>
+  </footer>
+</section>
+  <script src="chatbot.js" defer></script>
+</body>
+</html>

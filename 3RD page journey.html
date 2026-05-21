@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3RD PAGE OF JOURNEY</title>
+
+<style>
+      body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background-image: url("https://wallpapers.com/images/hd/mountain-aesthetic-h218g2kezxzhrd41.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      animation: fadeIn 1s ease-in-out;
+      overflow-x: hidden;
+    }  
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      } 
+
+      to {
+        opacity: 1;
+      }
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      background-color: rgba(203, 162, 143, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo span {
+      font-size: 40px;
+      font-weight: bold;
+      color: #f1e4da;
+      font-family: "Brush Script MT", cursive;
+      animation: pulse 2.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .title {
+      font-size: 32px;
+      font-family: "Brush Script MT", cursive;
+      font-weight: bold;
+      color: black;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-item i {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 5px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .nav-item:hover i {
+      transform: scale(1.2);
+      color: #6a1b9a;
+    }
+
+    .nav-item::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #6a1b9a;
+      transition: 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-item:hover::after {
+      width: 100%;
+    }
+
+    .nav-item a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .search {
+      border: 2px solid black;
+      border-radius: 25px;
+      padding: 8px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search:hover {
+      background: black;
+      color: white;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.25);
+      margin: 40px;
+      padding: 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+    }
+
+    h1 {
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 36px;
+    }
+
+    .places {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .place {
+      cursor: pointer;
+    }
+
+    .place img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .place img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .place p {
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 22px;
+    }
+
+    .options {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #aee6fa;
+      border-radius: 40px;
+      padding: 15px 25px;
+      text-align: center;
+      min-width: 180px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* JavaScript Toggle Class */
+    .card.selected {
+      background: #ffd700 !important;
+      transform: scale(1.1) translateY(-10px);
+      border: 2px solid #000;
+    }
+
+    footer {
+      background-color: #d3d3d3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+    }
+
+    .copyright {
+      font-family: "Brush Script MT", cursive;
+      font-size: 20px;
+      font-style: italic;
+    }
+
+    /* Search Overlay Styles */
+    #searchOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      color: white;
+    }
+
+    #searchOverlay input {
+      width: 50%;
+      padding: 15px;
+      border-radius: 30px;
+      border: none;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  background:#f2f2f2;
+}
+
+
+.download-box{
+  background:#fff;
+  width:90%;
+  margin:30px auto;
+  padding:30px;
+  border-radius:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.download-left h2{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.download-left p{
+  color:#555;
+  font-size:14px;
+}
+
+.mobile-input{
+  margin-top:15px;
+  display:flex;
+  gap:10px;
+}
+
+.mobile-input input{
+  width:260px;
+  padding:12px;
+  border:1px solid #787676;
+  border-radius:6px;
+  font-size:14px;
+}
+
+.mobile-input button{
+  background:#0071ff;
+  color:#fff;
+  border:none;
+  padding:12px 20px;
+  border-radius:6px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+
+body{
+  background:#eef2f7;
+  animation: fadeIn 1s ease-in;
+}
+
+/* ================= KEYFRAME ANIMATIONS ================= */
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+@keyframes slideUp{
+  from{opacity:0; transform:translateY(60px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+@keyframes zoomIn{
+  from{opacity:0; transform:scale(0.9)}
+  to{opacity:1; transform:scale(1)}
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+  100%{transform:scale(1)}
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+  display:flex;
+  justify-content:center;
+  gap:50px;
+  padding:25px;
+  background:#fff;
+  animation: slideUp 1s ease;
+}
+
+.nav-item{
+  text-align:center;
+  cursor:pointer;
+  transition:.4s;
+}
+
+.nav-item img{
+  width:40px;
+  transition:.4s;
+}
+
+.nav-item:hover img{
+  transform:scale(1.2) rotate(-5deg);
+}
+
+.nav-item span{
+  display:block;
+  margin-top:6px;
+  font-weight:600;
+}
+
+/* ================= DOWNLOAD APP ================= */
+.download-box{
+  width:90%;
+  margin:40px auto;
+  background:#fff;
+  padding:30px;
+  border-radius:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  animation: slideUp 1.2s ease;
+}
+
+.download-left h2{
+  font-size:28px;
+}
+
+.download-left p{
+  color:#555;
+  margin-top:8px;
+}
+
+.input-box{
+  margin-top:15px;
+  display:flex;
+  gap:10px;
+}
+
+.input-box input{
+  padding:12px;
+  width:250px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+.input-box button{
+  padding:12px 20px;
+  background:#0071ff;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  font-weight:bold;
+  cursor:pointer;
+  animation: pulse 2.5s infinite;
+}
+
+.input-box button:hover{
+  background:#0056cc;
+}
+
+/* ================= CARD SECTION ================= */
+.section{
+  width:90%;
+  margin:40px auto;
+  background:#fff;
+  padding:30px;
+  border-radius:14px;
+  animation: slideUp 1.3s ease;
+}
+
+.section h2{
+  font-size:30px;
+  margin-bottom:20px;
+}
+
+.cards{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+}
+
+.cards::-webkit-scrollbar{display:none;}
+
+.card{
+  min-width:260px;
+  height:340px;
+  border-radius:16px;
+  overflow:hidden;
+  position:relative;
+  cursor:pointer;
+  animation: zoomIn .9s ease;
+  transition:.4s;
+}
+
+.card:hover{
+  transform:translateY(-12px);
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+
+.card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.5s;
+}
+
+.card:hover img{
+  transform:scale(1.1);
+}
+
+/* gradient overlay */
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.7), transparent 60%);
+}
+
+.card span{
+  position:absolute;
+  bottom:18px;
+  left:18px;
+  color:#fff;
+  font-size:18px;
+  font-weight:bold;
+  z-index:1;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px){
+  .download-box{
+    flex-direction:column;
+    gap:20px;
+  }
+}
+.download-right{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.store-btn{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.store-btn img{
+  width:150px;
+}
+
+.qr img{
+  width:100px;
+}
+
+
+.collections{
+  background:#fff;
+  width:90%;
+  margin:30px auto;
+  padding:30px;
+  border-radius:12px;
+}
+
+.collections h2{
+  font-size:28px;
+  margin-bottom:20px;
+}
+
+.cards{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+}
+
+.card{
+  min-width:260px;
+  height:360px;
+  border-radius:16px;
+  overflow:hidden;
+  position:relative;
+}
+
+.card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.badge{
+  position:absolute;
+  top:15px;
+  left:15px;
+  background:#fff;
+  padding:5px 10px;
+  font-size:12px;
+  font-weight:bold;
+  border-radius:6px;
+}
+
+.card-text{
+  position:absolute;
+  bottom:20px;
+  left:15px;
+  right:15px;
+  color:#fff;
+}
+
+.card-text h4{
+  font-size:16px;
+  line-height:1.4;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">
+      <span>JS</span>
+      <div class="title">Journey Sphere</div>
+    </div>  
+
+    <div class="nav">
+      <div class="nav-item">
+        <i class="fas fa-plane"></i>
+        <a href="2nd page journey.html">FLIGHTS</a>
+      </div>
+      <div class="nav-item"><i class="fas fa-suitcase-rolling"></i> <a
+          href="10th page journey(TOURS AND ATTRACTION).HTML"> TOURS</a></div>
+      <div class="nav-item"><i class="fas fa-map-marked-alt"></i><a href="3RD page journey.html">HOLIDAY
+          <BR>DESTINATIONS</a></div>
+      <div class="nav-item"><i class="fas fa-ship"></i><a href="5TH page (CRUISE).HTML">CRUISE</a></div>
+
+
+      <div class="nav-item"><i class="fas fa-car"></i><a href="8th page journey(CABS).HTML">CABS</a> </div>
+      <div class="nav-item"><i class="fas fa-bus"></i> <a href="9th page journey(BUSES).HTML">BUSES</a></div>
+      <div class="nav-item"><i class="fas fa-train"></i><a href="7th page(TRAINS).HTML"> TRAINS </a></div>
+
+      <div class="nav-item"><i class="fas fa-passport"></i><A href="6th page (VISA).HTML">VISA</A> </div>
+      <div class="nav-item"><i class="fas fa-hotel"></i><A href="4TH PAGE JOURNEY( HOTEL).HTML">HOTELS</A></div>
+    </div>
+
+    <div class="search" id="triggerSearch">
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+
+
+<div class="download-box">
+  <div class="download-left">
+    <h2>Download App Now !</h2>
+    <p>Use code <b>WELCOMEMMT</b> and get <b>FLAT 12% OFF*</b> on your first domestic flight booking</p>
+    
+    <div class="mobile-input">
+      <input type="text" placeholder="+91 Enter Mobile number">
+      <button>GET APP LINK</button>
+    </div>
+  </div>
+  <div class="download-right">
+    <div class="store-btn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
+      <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
+    </div>
+    <div class="qr">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=app">
+    </div>
+  </div>
+</div>
+
+<div class="collections">
+  <h2>Handpicked Collections for You</h2>
+
+  <div class="cards">
+    <div class="card">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.EWe3NROGk58UqTHw--M7iAHaHa?cb=ucfimg2&ucfimg=1&w=1000&h=1000&rs=1&pid=ImgDetMain&o=7&rm=3">
+      <span class="badge">TOP 8</span>
+      <div class="card-text">
+        <h4>Stays in & Around Delhi for a Weekend Getaway</h4>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.thequint.com/thequint/2017-12/05e8e3a6-795a-4479-beb1-37ff0b3afaf3/2.jpg?auto=format,compress">
+      <span class="badge">TOP 8</span>
+      <div class="card-text">
+        <h4>Stays in & Around Mumbai for a Weekend Getaway</h4>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://blogs.revv.co.in/blogs/wp-content/uploads/2020/01/Bangalore-Palace.jpg">
+      <span class="badge">TOP 9</span>
+      <div class="card-text">
+        <h4>Stays in & Around Bangalore for a Weekend Getaway</h4>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://img.freepik.com/premium-photo/tree-beach_862462-124.jpg">
+      <span class="badge">TOP 11</span>
+      <div class="card-text">
+        <h4>Beach Destinations</h4>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://www.treebo.com/blog/wp-content/uploads/2017/08/Madras-High-Court.jpg">
+      <span class="badge">TOP 11</span>
+      <div class="card-text">
+        <h4>Weekend Getaways</h4>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  background:#f2f2f2;
+}
+
+.section{
+  background:#fff;
+  width:90%;
+  margin:40px auto;
+  padding:30px;
+  border-radius:14px;
+  position:relative;
+}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.section-header h2{
+  font-size:32px;
+  font-weight:800;
+}
+
+.arrows{
+  display:flex;
+  gap:10px;
+}
+
+.arrow{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid #ddd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  cursor:pointer;
+  color:#0071ff;
+}
+
+.card-row{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.card-row::-webkit-scrollbar{
+  display:none;
+}
+
+
+.card{
+  min-width:260px;
+  height:360px;
+  border-radius:16px;
+  overflow:hidden;
+  position:relative;
+  background:#000;
+}
+
+.card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.7), transparent 60%);
+}
+
+.card-text{
+  position:absolute;
+  bottom:18px;
+  left:16px;
+  right:16px;
+  color:#fff;
+  font-size:17px;
+  font-weight:600;
+  line-height:1.4;
+  z-index:1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="section">
+
+  <div class="section-header">
+    <h2>Unlock Lesser-Known Wonders of India</h2>
+    <div class="arrows">
+      <div class="arrow">&#8249;</div>
+      <div class="arrow">&#8250;</div>
+    </div>
+  </div>
+
+  <div class="card-row">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b">
+      <div class="card-text">Shimla's Best Kept Secret</div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+      <div class="card-text">Tamil Nadu's Charming Hill Town</div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470">
+      <div class="card-text">Picturesque Gateway to Himalayas</div>
+    </div>
+
+    <div class="card">
+      <img src="https://mews.in/wp-content/uploads/2021/12/Gujarat-hill-station.jpg">
+      <div class="card-text">Quaint Little Hill Station in Gujarat</div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
+      <div class="card-text">
+        A pleasant summer retreat and a snowy winter wonderland!
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+      <div class="card-text">Seaside Retreat in West Bengal</div>
+    </div>
+
+  </div>
+</div>
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  background:#f2f2f2;
+}
+
+
+.section{
+  background:#fff;
+  width:92%;
+  margin:40px auto;
+  padding:30px;
+  border-radius:14px;
+  position:relative;
+}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:25px;
+}
+
+.section-header h2{
+  font-size:34px;
+  font-weight:800;
+}
+
+.section-header p{
+  margin-top:6px;
+  color:#555;
+  font-size:16px;
+}
+
+
+.arrows{
+  display:flex;
+  gap:10px;
+}
+
+.arrow{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid #ddd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  color:#0071ff;
+  cursor:pointer;
+}
+
+.card-row{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.card-row::-webkit-scrollbar{
+  display:none;
+}
+
+.card{
+  min-width:200px;
+  height:300px;
+  border-radius:14px;
+  overflow:hidden;
+  position:relative;
+  background:#000;
+}
+
+.card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.65), transparent 60%);
+}
+
+.card span{
+  position:absolute;
+  bottom:14px;
+  left:14px;
+  color:#fff;
+  font-size:15px;
+  font-weight:600;
+  z-index:1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="section">
+  <div class="section-header">
+    <div>
+      <h2>Best Selling Destinations</h2>
+      <p>Unmissable Year-End Travel Deals on Top Trending Destinations!</p>
+    </div>
+    <div class="arrows">
+      <div class="arrow">&#8249;</div>
+      <div class="arrow">&#8250;</div>
+    </div>
+  </div>
+
+  <div class="card-row">
+    <div class="card">
+      <img src="https://dekhoandaman.com/wp-content/uploads/2023/04/WhatsApp-Image-2023-04-03-at-12.15.01-AM.jpeg">
+      <span>Andaman</span>
+    </div>
+    <div class="card">
+      <img src="https://www.roadaffair.com/wp-content/uploads/2017/10/doi-inthanon-national-park-thailand-shutterstock_227684350.jpg">
+      <span>Thailand</span>
+    </div>
+    <div class="card">
+      <img src="https://deih43ym53wif.cloudfront.net/long-beach-phu-quoc-best-beaches-in-vietnam_shutterstock_389435179_36e9b14cff.jpeg">
+      <span>Phu Quoc, Vietnam</span>
+    </div>
+    <div class="card">
+      <img src="https://www.luxurylifestylemag.co.uk/wp-content/uploads/2020/06/bigstock-SINGAPORE-SINGAPORE-MARCH-308606026.jpg">
+      <span>Singapore</span>
+    </div>
+    <div class="card">
+      <img src="https://th.bing.com/th/id/OIP.l02eav_JjbOlzyjfOo43zgHaFG?o=7&cb=ucfimg2&rm=3&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+      <span>Europe</span>
+    </div>
+    <div class="card">
+      <img src="https://emiratica.com/data/upload/files/burj_kh.jpg">
+      <span>Dubai</span>
+    </div>
+    <div class="card">
+      <img src="https://hips.hearstapps.com/hmg-prod/images/sunset-la-conciergerie-paris-france-royalty-free-image-1575853945.jpg?crop=0.702xw:1.00xh;0.0867xw">
+      <span>Paris</span>
+    </div>
+    <div class="card">
+      <img src="https://confusedparent.in/wp-content/uploads/2019/05/20-Best-Places-To-Visit-In-Goa-With-Kids-2019.jpg">
+      <span>Goa</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div>
+      <h2>Last-minute Deals</h2>
+      <p>Use Code: <b>LASTMINUTE</b> for unbeatable deals on year-end getaways!</p>
+    </div>
+    <div class="arrows">
+      <div class="arrow">&#8249;</div>
+      <div class="arrow">&#8250;</div>
+    </div>
+  </div>
+
+  <div class="card-row">
+    <div class="card">
+      <img src="https://www.ekeralatourism.net/wp-content/uploads/2018/03/Alleppey.jpg">
+      <span>Kerala</span>
+    </div>
+    <div class="card">
+      <img src="https://www.fabhotels.com/blog/wp-content/uploads/2018/09/Gateway-of-India-1.jpg">
+      <span>Mumbai</span>
+    </div>
+    <div class="card">
+      <img src="https://3.bp.blogspot.com/-gyrh_RuCV2E/U1YDxp9I4EI/AAAAAAAAE-g/E8JjPonHeco/s1600/Hawa-Mahal-Palace-Jaipur-Monuments-Of-India.jpg">
+      <span>Rajasthan</span>
+    </div>
+    <div class="card">
+      <img src="https://4.bp.blogspot.com/-RpnamYnxCa0/XNlX5PKPGBI/AAAAAAAAC6M/Jkj_TJB-d70e1OB_uNvU39lnAorNoH_MACLcBGAs/s1600/Dudhsagar-Waterfalls.jpg">
+      <span>Goa</span>
+    </div>
+    <div class="card">
+      <img src="https://th.bing.com/th/id/OIP.0BlEuU_LhFd6bDcJ6YQabQHaEc?o=7&cb=ucfimg2&rm=3&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+      <span>Himachal Pradesh</span>
+    </div>
+    <div class="card">
+      <img src="https://fthmb.tqn.com/oNaNMUMdTrpqlJ8uv1LD4tAgguM=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/shore-temple-640319518-58e3eaf25f9b58ef7e113e1f.jpg">
+      <span>South India</span>
+    </div>
+    <div class="card">
+      <img src="https://www.tripsavvy.com/thmb/XxgC72QnMzUcagocE97A3BlLliM=/2121x1414/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-584374227-58ac1d273df78c345b154d7a.jpg">
+      <span>Kashmir</span>
+    </div>
+    <div class="card">
+      <img src="https://i0.wp.com/www.tusktravel.com/blog/wp-content/uploads/2020/03/Ravangla.jpg?fit=923%2C677&ssl=1">
+      <span>Sikkim & Darjeeling</span>
+    </div>
+  </div>
+</div>
+ <footer>
+    <div>
+      <i class="fab fa-snapchat" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-facebook" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-instagram" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-x-twitter" style="font-size: 30px; cursor: pointer;"></i>
+    </div>
+    <div class="copyright">
+      © 2025 journeysphere pvt.ltd
+    </div>
+  </footer>
+  <script src="chatbot.js" defer></script>
+</body>
+</html>

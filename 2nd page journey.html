@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>2nd page ourney</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+     body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background-image: url("https://wallpapers.com/images/hd/mountain-aesthetic-h218g2kezxzhrd41.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      animation: fadeIn 1s ease-in-out;
+      overflow-x: hidden;
+    }  
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      } 
+
+      to {
+        opacity: 1;
+      }
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      background-color: rgba(203, 162, 143, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo span {
+      font-size: 40px;
+      font-weight: bold;
+      color: #f1e4da;
+      font-family: "Brush Script MT", cursive;
+      animation: pulse 2.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .title {
+      font-size: 32px;
+      font-family: "Brush Script MT", cursive;
+      font-weight: bold;
+      color: black;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-item i {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 5px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .nav-item:hover i {
+      transform: scale(1.2);
+      color: #6a1b9a;
+    }
+
+    .nav-item::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #6a1b9a;
+      transition: 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-item:hover::after {
+      width: 100%;
+    }
+
+    .nav-item a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .search {
+      border: 2px solid black;
+      border-radius: 25px;
+      padding: 8px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search:hover {
+      background: black;
+      color: white;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.25);
+      margin: 40px;
+      padding: 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+    }
+
+    h1 {
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 36px;
+    }
+
+    .places {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .place {
+      cursor: pointer;
+    }
+
+    .place img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .place img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .place p {
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 22px;
+    }
+
+    .options {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #aee6fa;
+      border-radius: 40px;
+      padding: 15px 25px;
+      text-align: center;
+      min-width: 180px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* JavaScript Toggle Class */
+    .card.selected {
+      background: #ffd700 !important;
+      transform: scale(1.1) translateY(-10px);
+      border: 2px solid #000;
+    }
+
+    footer {
+      background-color: #d3d3d3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+    }
+
+    .copyright {
+      font-family: "Brush Script MT", cursive;
+      font-size: 20px;
+      font-style: italic;
+    }
+
+    /* Search Overlay Styles */
+    #searchOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      color: white;
+    }
+
+    #searchOverlay input {
+      width: 50%;
+      padding: 15px;
+      border-radius: 30px;
+      border: none;
+      font-size: 20px;
+      margin-top: 20px;
+    
+  background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") center/cover fixed;
+  animation: fadeIn 1.2s ease;
+}
+}
+
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 30px;
+  background:#fff;
+  margin:20px;
+  border-radius:10px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo span{
+  font-size:22px;
+  font-weight:bold;
+  color:red;
+}
+
+.nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+}
+
+.nav-item{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.nav-item a{
+  text-decoration:none;
+  color:#000;
+  font-size:13px;
+}
+
+/* FOOTER */
+footer{
+  background:#000;
+  color:#0e0d0d;
+  padding:25px;
+  text-align:center;
+  margin-top:30px;
+}
+
+footer i{
+  font-size:25px;
+  margin:0 10px;
+  cursor:pointer;
+}
+
+footer .copyright{
+  margin-top:10px;
+  font-size:14px;
+}
+/* TOP BAR */
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 30px;
+  background:#0a0a0a;
+  margin:20px;
+  border-radius:10px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo span{
+  font-size:22px;
+  font-weight:bold;
+  color:red;
+}
+
+.nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+}
+
+.nav-item{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.nav-item a{
+  text-decoration:none;
+  color:#000;
+  font-size:13px;
+}
+
+/* FOOTER */
+footer{
+  background:#000;
+  color:#181616;
+  padding:25px;
+  text-align:center;
+  margin-top:30px;
+}
+
+footer i{
+  font-size:25px;
+  margin:0 10px;
+  cursor:pointer;
+}
+
+footer .copyright{
+  margin-top:10px;
+  font-size:14px;
+}
+.top-bar{
+  background:#fff;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-radius:10px;
+  margin:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.top-bar span{
+  color:red;
+  font-weight:bold;
+}
+
+.new-tag{
+  background:red;
+  color:#fff;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:12px;
+  animation:pulse 1.8s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+  100%{transform:scale(1)}
+}
+
+/* MAIN GRID */
+.main{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  padding:30px;
+  gap:40px;
+  background:rgba(135,170,200,0.75);
+}
+
+/* FLIGHT LIST */
+.flight-list{
+  color:#fff;
+}
+
+.flight{
+  display:flex;
+  gap:12px;
+  margin-bottom:25px;
+  align-items:center;
+  animation: slideLeft 1s ease;
+}
+
+@keyframes slideLeft{
+  from{opacity:0; transform:translateX(-40px)}
+  to{opacity:1; transform:translateX(0)}
+}
+
+.flight img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+}
+
+.flight h4{
+  color:#00ff4c;
+}
+
+.flight p{
+  font-size:13px;
+}
+
+/* DEAL CARDS */
+.deals{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:40px 0;
+  background:rgba(135,170,200,0.75);
+}
+
+.deal-card{
+  background:#d9ec63;
+  padding:30px;
+  width:300px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  animation: slideUp 1s ease;
+  transition:0.4s;
+}
+
+@keyframes slideUp{
+  from{opacity:0; transform:translateY(50px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+.deal-card:hover{
+  transform:translateY(-12px) scale(1.05);
+  box-shadow:0 18px 35px rgba(0,0,0,0.35);
+}
+
+.deal-card h3{
+  color:red;
+  margin-bottom:10px;
+}
+
+.deal-card p{
+  font-size:14px;
+}
+
+/* BOTTOM BANNER */
+.banner{
+  background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") center/cover;
+  color:#0a0a0a;
+  padding:60px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+}
+
+.banner h2{
+  font-size:28px;
+}
+
+.banner button{
+  padding:12px 25px;
+  border:none;
+  background:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.banner button:hover{
+  background:#ffcc00;
+}
+</style>
+</head>
+
+<body>
+<div class="header">
+  <div class="logo">
+    <span>JS</span>
+    <div class="title">Journey Sphere</div>
+  </div>  
+
+  <div class="nav">
+    <div class="nav-item"><i class="fas fa-plane"></i><a href="#">FLIGHTS</a></div>
+    <div class="nav-item"><i class="fas fa-suitcase-rolling"></i><a href="#">TOURS</a></div>
+    <div class="nav-item"><i class="fas fa-map-marked-alt"></i><a href="#">DESTINATIONS</a></div>
+    <div class="nav-item"><i class="fas fa-ship"></i><a href="#">CRUISE</a></div>
+    <div class="nav-item"><i class="fas fa-car"></i><a href="#">CABS</a></div>
+    <div class="nav-item"><i class="fas fa-bus"></i><a href="#">BUSES</a></div>
+    <div class="nav-item"><i class="fas fa-train"></i><a href="#">TRAINS</a></div>
+    <div class="nav-item"><i class="fas fa-passport"></i><a href="#">VISA</a></div>
+    <div class="nav-item"><i class="fas fa-hotel"></i><a href="#">HOTELS</a></div>
+  </div>
+</div>
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div>
+    <span>Show EMI Prices</span><br>
+    EMI starts at ₹ 1,880/mo only
+  </div>
+  <div class="new-tag">NEW</div>
+</div>
+
+<!-- MAIN SECTION -->
+<div class="main">
+  <div class="flight-list">
+    <div class="flight">
+      <img src="https://tse1.mm.bing.net/th/id/OIP.BG3KDyB09v_zQTol9wupQAHaEK?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+      <div>
+        <h4>Chennai Flights</h4>
+        <p>Via - Delhi, Mumbai, Coimbatore, Madurai</p>
+      </div>
+    </div>
+
+    <div class="flight">
+      <img src="https://www.holidify.com/images/cmsuploads/compressed/1280px-The_Charminar_on_a_cloudy_day_20191224180350.jpg">
+      <div>
+        <h4>Hyderabad Flights</h4>
+        <p>Via - Chennai, Mumbai, Bangalore, Delhi</p>
+      </div>
+    </div>
+
+    <div class="flight">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.NDYmreDed_84stfB3hJlDgHaE8?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+      <div>
+        <h4>Kolkata Flights</h4>
+        <p>Via - Delhi, Mumbai, Bangalore, Pune</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flight-list">
+    <div class="flight">
+      <img src="https://tse4.mm.bing.net/th/id/OIP.jGJTnzIZ97L7aeeRrejriwHaE8?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+      <div>
+        <h4>Goa Flights</h4>
+        <p>Via - Delhi, Mumbai, Bangalore, Ahmedabad</p>
+      </div>
+    </div>
+
+    <div class="flight">
+      <img src="https://th.bing.com/th/id/OIP.A5UuYtBg0525CD3bIehAuwHaEu?o=7&cb=ucfimg2&rm=3&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+      <div>
+        <h4>Delhi Flights</h4>
+        <p>Via - Mumbai, Pune, Bangalore, Chennai</p>
+      </div>
+    </div>
+
+    <div class="flight">
+      <img src="https://www.fabhotels.com/blog/wp-content/uploads/2018/06/Monuments_1000x650_SubHeadImages_210618.jpg">
+      <div>
+        <h4>Bangalore Flights</h4>
+        <p>Via - Delhi, Pune, Mumbai, Kolkata</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flight-list">
+    <div class="flight">
+      <img src="https://www.fabhotels.com/blog/wp-content/uploads/2018/09/Gateway-of-India-1.jpg">
+      <div>
+        <h4>Mumbai Flights</h4>
+        <p>Via - Delhi, Bangalore, Chennai, Ahmedabad</p>
+      </div>
+    </div>
+
+    <div class="flight">
+      <img src="https://hblimg.mmtcdn.com/content/hubble/img/pune/mmt/activities/m_Pune_Destination_l_373_584.jpg">
+      <div>
+        <h4>Pune Flights</h4>
+        <p>Via - Delhi, Bangalore, Chennai, Ahmedabad</p>
+      </div>
+    </div>
+
+    <div class="flight">
+      <img src="https://images.squarespace-cdn.com/content/v1/5a3bb03b4c326d76de73ddaa/0c1c6332-6d13-4e61-bb72-5012e3462d33/The+Common+Wanderer-1696-2.jpg">
+      <div>
+        <h4>Jaipur Flights</h4>
+        <p>Via - Mumbai, Delhi, Pune, Bangalore</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEAL CARDS -->
+<div class="deals">
+  <div class="deal-card">
+    <h3>Hyderabad to Langkawi</h3>
+    <p>➤ one stop via Bengaluru</p>
+    <p>➤ ₹ 11,282 per adult</p>
+  </div>
+
+  <div class="deal-card">
+    <h3>New Delhi to Canada</h3>
+    <p>➤ one stop via London</p>
+    <p>➤ ₹ 22,999 per adult</p>
+  </div>
+
+  <div class="deal-card">
+    <h3>Chennai to Kuala Lumpur</h3>
+    <p>➤ direct flight</p>
+    <p>➤ ₹ 17,235 per adult</p>
+  </div>
+</div>
+
+<!-- BOTTOM BANNER -->
+<div class="banner">
+  <div>
+    <h2>STEP INTO A DREAM IN<br>WESTERN AUSTRALIA</h2>
+  </div>
+  <div>
+    <h3>WESTERN AUSTRALIA</h3>
+    <button>BOOK NOW</button>
+  </div>
+</div>
+<style>
+/* ---------- RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ---------- BODY ---------- */
+body {
+  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e")
+              no-repeat center/cover;
+  min-height: 100vh;
+  color: #000;
+}
+
+/* ---------- MAIN CONTAINER ---------- */
+.container {
+  width: 95%;
+  margin: auto;
+  padding: 30px 0;
+}
+
+/* ---------- TITLE ---------- */
+.title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  animation: fadeDown 1s ease;
+}
+
+/* ---------- AIRLINE CARDS ---------- */
+.airlines {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.air-card {
+  flex: 1;
+  background: linear-gradient(135deg, #4c78b8, #2f5fa4);
+  border-radius: 18px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  animation: slideUp 1s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.air-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 20px 35px rgba(0,0,0,0.35);
+}
+
+.air-card img {
+  width: 90px;
+  border-radius: 10px;
+}
+
+.air-card h2 {
+  font-size: 22px;
+}
+
+/* ---------- OFFERS ---------- */
+.offers-title {
+  color: red;
+  font-size: 22px;
+  margin-bottom: 15px;
+  animation: fadeIn 1.2s ease;
+}
+
+.offer-links {
+  font-size: 15px;
+  margin-bottom: 25px;
+}
+
+.offer-links span {
+  color: red;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+/* ---------- OFFER GRID ---------- */
+.offers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+}
+
+/* ---------- OFFER CARD ---------- */
+.offer-card {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255,255,255,0.75);
+  border-radius: 14px;
+  position: relative;
+  animation: fadeUp 1s ease;
+}
+
+.offer-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: #1e6cff;
+  border-radius: 10px;
+}
+
+.offer-card img {
+  width: 120px;
+  border-radius: 10px;
+}
+
+.offer-text small {
+  color: blue;
+  font-weight: bold;
+}
+
+.offer-text h3 {
+  margin: 6px 0;
+}
+
+.book {
+  color: #1e6cff;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 5px;
+  transition: transform 0.3s;
+}
+
+.book:hover {
+  transform: translateX(6px);
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .airlines {
+    flex-direction: column;
+  }
+
+  .offers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="searchOverlay">
+    <i class="fas fa-times" id="closeSearch"
+      style="position: absolute; top: 30px; right: 40px; cursor: pointer; font-size: 30px;"></i>
+    <h2 style="font-family: 'Brush Script MT', cursive; font-size: 45px;">Where are we going?</h2>
+    <input type="text" placeholder="Search destinations, flights, or hotels..."> 
+  </div>
+
+
+
+  <!-- TITLE -->
+  <div class="title">Experience Flying with our Airline Partners</div>
+
+  <!-- AIRLINE PARTNERS -->
+  <div class="airlines">
+    <div class="air-card">
+      <img src="https://airinsight.com/wp-content/uploads/2019/08/A321XLR-AirAsia-.jpg">
+      <h2>AirAsia</h2>
+    </div>
+
+    <div class="air-card">
+      <img src="https://images.ctfassets.net/m9ph4qvas97u/5GtxkUynRhWnSvgUZV3s8N/2646d7d7d199176aaaa17000cbdf04d5/oneworld-alliance-cathay-pacific-hero.jpg?fm=webp&q=80">
+      <h2>Cathay Pacific</h2>
+    </div>
+
+    <div class="air-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyE04GU4mwcOV-cpdhNLyGhsYQJ9betLkslQ&s">
+      <h2>Indigo</h2>
+    </div>
+  </div>
+
+  <div class="offers-title">Offers</div>
+
+  <div class="offer-links">
+    <span>All Offers</span> |
+    <span>Flights</span> |
+    <span>Hotels</span> |
+    <span>Holidays</span> |
+    <span>Trains</span> |
+    <span>Visa</span> |
+    <span>Cabs</span> |
+    <span>Bank Offers</span> |
+    <span>View All</span>
+  </div>
+
+  <!-- OFFER GRID -->
+  <div class="offers-grid">
+
+    <div class="offer-card">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.CSHw4fRAuhd0bDUbIzIUDQHaDt?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+      <div class="offer-text">
+        <small>INTL FLIGHTS | T&C APPLY</small>
+        <h3>Introducing Price Lock Pro</h3>
+        <p>Lock Prices for Multiple Flights. Pay Just One Fee.</p>
+        <div class="book">BOOK NOW</div>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <img src="https://media.assettype.com/freepressjournal/2025-06-23/4s602xtq/IndiGo%20Flights.jpg">
+      <div class="offer-text">
+        <small>DOM FLIGHTS | T&C APPLY</small>
+        <h3>LIVE NOW: Sale by IndiGo!</h3>
+        <p>With fares starting @ ₹1,299*</p>
+        <div class="book">BOOK NOW</div>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <img src="https://th.bing.com/th/id/OIP.HXf-Ot_4R-7ZYJod49YuRAHaEK?o=7&cb=ucfimg2&rm=3&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+      <div class="offer-text">
+        <small>CABS | T&C APPLY</small>
+        <h3>Festive Deals: Up to 15% OFF*</h3>
+        <p>On Buses, Cabs & Trains</p>
+        <div class="book">BOOK NOW</div>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <img src="https://tse1.mm.bing.net/th/id/OIP.o_YrQhs1XIk6fQ920IAA8QHaJQ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3">
+      <div class="offer-text">
+        <small>DOM HOTELS | T&C APPLY</small>
+        <h3>Up to 40% OFF* on Cygnett Hotels</h3>
+        <p>Enjoy BIG savings on your stay</p>
+        <div class="book">BOOK NOW</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+  <footer>
+    <div>
+      <i class="fab fa-snapchat" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-facebook" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-instagram" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+      <i class="fab fa-x-twitter" style="font-size: 30px; cursor: pointer;"></i>
+    </div>
+    <div class="copyright">
+      © 2025 journeysphere pvt.ltd
+    </div>
+  </footer>
+  <script src="chatbot.js" defer></script>
+</body>
+</html>
+
+
+
+
